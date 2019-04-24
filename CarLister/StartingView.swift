@@ -9,6 +9,7 @@
 import UIKit
 
 class StartingView: UIViewController {
+    lazy var dataWork = DealersAndVehiclesWorker()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,7 +17,7 @@ class StartingView: UIViewController {
     }
 
     @IBAction func fetchDataPressed(_ sender: Any) {
-        
+        dataWork.loadData()
     }
     
 }
