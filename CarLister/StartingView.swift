@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  StartingView.swift
 //  CarLister
 //
 //  Created by Tyler Hays on 4/22/19.
@@ -8,13 +8,16 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class StartingView: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
 
-
+    @IBAction func fetchDataPressed(_ sender: Any) {
+        
+    }
+    
 }
 
