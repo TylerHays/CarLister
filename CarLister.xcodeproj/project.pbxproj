@@ -16,6 +16,10 @@
 		F31EA748226E72E800C54FF9 /* DealersAndVehiclesWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31EA747226E72E800C54FF9 /* DealersAndVehiclesWorker.swift */; };
 		F31EA74B226E780D00C54FF9 /* Dealership.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31EA74A226E780D00C54FF9 /* Dealership.swift */; };
 		F31EA74D226E781D00C54FF9 /* Vechicle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31EA74C226E781D00C54FF9 /* Vechicle.swift */; };
+		F31EA7502270219300C54FF9 /* DealerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31EA74F2270219300C54FF9 /* DealerTableViewCell.swift */; };
+		F31EA752227021B600C54FF9 /* VehicleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31EA751227021B600C54FF9 /* VehicleTableViewCell.swift */; };
+		F31EA7552270245C00C54FF9 /* VehiclesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31EA7542270245C00C54FF9 /* VehiclesViewController.swift */; };
+		F31EA7572270246E00C54FF9 /* DealershipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31EA7562270246E00C54FF9 /* DealershipViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +46,10 @@
 		F31EA747226E72E800C54FF9 /* DealersAndVehiclesWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DealersAndVehiclesWorker.swift; sourceTree = "<group>"; };
 		F31EA74A226E780D00C54FF9 /* Dealership.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dealership.swift; sourceTree = "<group>"; };
 		F31EA74C226E781D00C54FF9 /* Vechicle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vechicle.swift; sourceTree = "<group>"; };
+		F31EA74F2270219300C54FF9 /* DealerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DealerTableViewCell.swift; sourceTree = "<group>"; };
+		F31EA751227021B600C54FF9 /* VehicleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleTableViewCell.swift; sourceTree = "<group>"; };
+		F31EA7542270245C00C54FF9 /* VehiclesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehiclesViewController.swift; sourceTree = "<group>"; };
+		F31EA7562270246E00C54FF9 /* DealershipViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DealershipViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +91,8 @@
 		F31EA725226E63B000C54FF9 /* CarLister */ = {
 			isa = PBXGroup;
 			children = (
+				F31EA7532270241C00C54FF9 /* View Controllers */,
+				F31EA74E2270216C00C54FF9 /* Tableview Cells */,
 				F31EA749226E771D00C54FF9 /* Bussiness Objects */,
 				F31EA746226E729E00C54FF9 /* Utility */,
 				F31EA726226E63B000C54FF9 /* AppDelegate.swift */,
@@ -119,6 +129,24 @@
 				F31EA74C226E781D00C54FF9 /* Vechicle.swift */,
 			);
 			path = "Bussiness Objects";
+			sourceTree = "<group>";
+		};
+		F31EA74E2270216C00C54FF9 /* Tableview Cells */ = {
+			isa = PBXGroup;
+			children = (
+				F31EA74F2270219300C54FF9 /* DealerTableViewCell.swift */,
+				F31EA751227021B600C54FF9 /* VehicleTableViewCell.swift */,
+			);
+			path = "Tableview Cells";
+			sourceTree = "<group>";
+		};
+		F31EA7532270241C00C54FF9 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				F31EA7542270245C00C54FF9 /* VehiclesViewController.swift */,
+				F31EA7562270246E00C54FF9 /* DealershipViewController.swift */,
+			);
+			path = "View Controllers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -223,10 +251,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				F31EA74B226E780D00C54FF9 /* Dealership.swift in Sources */,
+				F31EA7552270245C00C54FF9 /* VehiclesViewController.swift in Sources */,
+				F31EA752227021B600C54FF9 /* VehicleTableViewCell.swift in Sources */,
 				F31EA74D226E781D00C54FF9 /* Vechicle.swift in Sources */,
 				F31EA748226E72E800C54FF9 /* DealersAndVehiclesWorker.swift in Sources */,
 				F31EA729226E63B000C54FF9 /* StartingView.swift in Sources */,
 				F31EA727226E63B000C54FF9 /* AppDelegate.swift in Sources */,
+				F31EA7502270219300C54FF9 /* DealerTableViewCell.swift in Sources */,
+				F31EA7572270246E00C54FF9 /* DealershipViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
