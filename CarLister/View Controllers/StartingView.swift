@@ -52,7 +52,6 @@ class StartingView: UIViewController {
         }
         controller.setup(dealerships: dealerships)
     }
-    
 }
 
 extension StartingView: DealersAndVehiclesWorkerDelegate {
@@ -62,7 +61,7 @@ extension StartingView: DealersAndVehiclesWorkerDelegate {
             self.dealerships = dataResponse.dealerships
             self.performSegue(withIdentifier: showDealershipSegue, sender: self)
         } else {
-            //TODO: Show error message
+            self.showOKAlertMessage(title: "Error", message: "There was trouble collecting the data. Please check your internet connection and try again")
         }
     }
     
@@ -70,9 +69,6 @@ extension StartingView: DealersAndVehiclesWorkerDelegate {
         DispatchQueue.main.async {
             self.activityMessageLabel.text = updateMessage
         }
-        
     }
-    
-    
 }
 

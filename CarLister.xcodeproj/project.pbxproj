@@ -20,6 +20,7 @@
 		F31EA752227021B600C54FF9 /* VehicleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31EA751227021B600C54FF9 /* VehicleTableViewCell.swift */; };
 		F31EA7552270245C00C54FF9 /* VehiclesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31EA7542270245C00C54FF9 /* VehiclesViewController.swift */; };
 		F31EA7572270246E00C54FF9 /* DealershipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31EA7562270246E00C54FF9 /* DealershipViewController.swift */; };
+		F31EA75922716DF300C54FF9 /* UIViewController+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F31EA75822716DF300C54FF9 /* UIViewController+extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +51,7 @@
 		F31EA751227021B600C54FF9 /* VehicleTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehicleTableViewCell.swift; sourceTree = "<group>"; };
 		F31EA7542270245C00C54FF9 /* VehiclesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VehiclesViewController.swift; sourceTree = "<group>"; };
 		F31EA7562270246E00C54FF9 /* DealershipViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DealershipViewController.swift; sourceTree = "<group>"; };
+		F31EA75822716DF300C54FF9 /* UIViewController+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				F31EA747226E72E800C54FF9 /* DealersAndVehiclesWorker.swift */,
+				F31EA75822716DF300C54FF9 /* UIViewController+extension.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -252,6 +255,7 @@
 			files = (
 				F31EA74B226E780D00C54FF9 /* Dealership.swift in Sources */,
 				F31EA7552270245C00C54FF9 /* VehiclesViewController.swift in Sources */,
+				F31EA75922716DF300C54FF9 /* UIViewController+extension.swift in Sources */,
 				F31EA752227021B600C54FF9 /* VehicleTableViewCell.swift in Sources */,
 				F31EA74D226E781D00C54FF9 /* Vechicle.swift in Sources */,
 				F31EA748226E72E800C54FF9 /* DealersAndVehiclesWorker.swift in Sources */,
