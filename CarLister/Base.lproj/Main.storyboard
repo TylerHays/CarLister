@@ -10,39 +10,85 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Starting View-->
+        <!--Gather Data-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="StartingView" customModule="CarLister" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Gather Data" id="BYZ-38-t0r" customClass="StartingView" customModule="CarLister" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gms-Tn-YS2">
-                                <rect key="frame" x="184" y="433" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gms-Tn-YS2">
+                                <rect key="frame" x="155" y="430" width="104" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Get Dataset"/>
                                 <connections>
                                     <action selector="fetchDataPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="OpF-91-ziN"/>
                                 </connections>
                             </button>
+                            <view alpha="0.65000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LIz-Nv-81I">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yF5-WM-s6s">
+                                        <rect key="frame" x="164.5" y="415.5" width="85" height="65"/>
+                                        <subviews>
+                                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="BoS-ON-FK2">
+                                                <rect key="frame" x="32.5" y="8" width="20" height="20"/>
+                                            </activityIndicatorView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qTz-eB-ty8">
+                                                <rect key="frame" x="8" y="36" width="69" height="21"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" red="0.92156862750000001" green="0.92156862750000001" blue="0.92156862750000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="qTz-eB-ty8" firstAttribute="leading" secondItem="yF5-WM-s6s" secondAttribute="leading" priority="750" constant="8" id="9ku-eb-ALo"/>
+                                            <constraint firstItem="BoS-ON-FK2" firstAttribute="centerX" secondItem="yF5-WM-s6s" secondAttribute="centerX" id="Bn0-Nh-bfs"/>
+                                            <constraint firstAttribute="bottom" secondItem="qTz-eB-ty8" secondAttribute="bottom" constant="8" id="E6B-eK-4Tn"/>
+                                            <constraint firstItem="qTz-eB-ty8" firstAttribute="top" secondItem="BoS-ON-FK2" secondAttribute="bottom" constant="8" id="MC9-aT-SAL"/>
+                                            <constraint firstAttribute="trailing" secondItem="qTz-eB-ty8" secondAttribute="trailing" constant="8" id="PRQ-dZ-Tqu"/>
+                                            <constraint firstItem="BoS-ON-FK2" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="yF5-WM-s6s" secondAttribute="leading" constant="8" id="XIg-Bb-pHY"/>
+                                            <constraint firstItem="BoS-ON-FK2" firstAttribute="top" secondItem="yF5-WM-s6s" secondAttribute="top" constant="8" id="Xnx-cD-Yx7"/>
+                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="BoS-ON-FK2" secondAttribute="trailing" constant="8" id="kV6-7B-ud9"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="yF5-WM-s6s" firstAttribute="centerX" secondItem="LIz-Nv-81I" secondAttribute="centerX" id="Zqc-wf-cTD"/>
+                                    <constraint firstItem="yF5-WM-s6s" firstAttribute="centerY" secondItem="LIz-Nv-81I" secondAttribute="centerY" id="hr1-0Z-2Jl"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="gms-Tn-YS2" firstAttribute="centerY" secondItem="LIz-Nv-81I" secondAttribute="centerY" id="Ddj-uR-N0o"/>
+                            <constraint firstItem="LIz-Nv-81I" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="FXc-mI-KUs"/>
+                            <constraint firstAttribute="bottom" secondItem="LIz-Nv-81I" secondAttribute="bottom" id="bpR-Ml-ldB"/>
+                            <constraint firstItem="LIz-Nv-81I" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="ds6-Xx-MVP"/>
+                            <constraint firstItem="gms-Tn-YS2" firstAttribute="centerX" secondItem="LIz-Nv-81I" secondAttribute="centerX" id="fre-Rh-EpK"/>
+                            <constraint firstItem="LIz-Nv-81I" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="sUP-Jz-p4Z"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="uOi-Dp-dTj"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="BoS-ON-FK2" id="0ka-F5-Rp2"/>
+                        <outlet property="activityMessageLabel" destination="qTz-eB-ty8" id="G0g-sI-fh6"/>
+                        <outlet property="activityView" destination="LIz-Nv-81I" id="KdZ-Qt-ghX"/>
                         <segue destination="ePS-VZ-V9o" kind="show" identifier="ShowDealershipsSegue" id="Vge-Sa-irx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1277" y="783"/>
+            <point key="canvasLocation" x="1276.8115942028987" y="782.8125"/>
         </scene>
-        <!--Dealership View Controller-->
+        <!--Dealerships-->
         <scene sceneID="kol-Zs-tP4">
             <objects>
-                <viewController id="ePS-VZ-V9o" customClass="DealershipViewController" customModule="CarLister" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Dealerships" id="ePS-VZ-V9o" customClass="DealershipViewController" customModule="CarLister" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8GR-04-Wrf">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -115,7 +161,7 @@
                         <viewLayoutGuide key="safeArea" id="Ynn-Ly-FQ5"/>
                     </view>
                     <connections>
-                        <segue destination="4aN-g1-zQl" kind="show" identifier="ShowDealerVehiclesSegue" id="3B9-ce-O7X"/>
+                        <segue destination="4aN-g1-zQl" kind="show" identifier="ShowVehiclesSegue" id="3B9-ce-O7X"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xcv-gM-oiH" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -8,7 +8,36 @@
 
 import UIKit
 
+protocol  DealersAndVehiclesWorkerDelegate {
+    func dealersAndVehiclesWorkerComplete(_ worker:DealersAndVehiclesWorker,
+                                          dataResponse: DealerVehicleCallResponse )
+    func dealersAndVehiclesWorker(_ worker:DealersAndVehiclesWorker, updateMessage:String)
+}
+
+struct DealerVehicleCallResponse {
+    let dealerships: [Dealership]?
+    let vehicleIdsFailedToLoad: [Int]?
+    let dealershipsIdFailedToLoad: [Int]?
+    let responseStatus: DealersVehiclesResponseStatus
+    
+    init(dealership: [Dealership]? = nil,
+         vehicleIdsFailedToLoad: [Int]? = nil,
+         dealershipsIdFailedToLoad: [Int]? = nil,
+         responseStatus: DealersVehiclesResponseStatus) {
+        self.dealerships = dealership
+        self.vehicleIdsFailedToLoad = vehicleIdsFailedToLoad
+        self.dealershipsIdFailedToLoad = dealershipsIdFailedToLoad
+        self.responseStatus = responseStatus
+    }
+}
+
+enum DealersVehiclesResponseStatus {
+    case successfull, error, errorOnSomeRecords
+}
+
 class DealersAndVehiclesWorker {
+    
+    var workerDelegate: DealersAndVehiclesWorkerDelegate?
     
     struct DatasetId: Codable {
         let datasetId: String
@@ -18,23 +47,40 @@ class DealersAndVehiclesWorker {
         let vehicleIds: [Int]
     }
     
+    init(workerDelegate: DealersAndVehiclesWorkerDelegate) {
+        self.workerDelegate = workerDelegate
+    }
+   
     private static let urlBaseAPI = "https://vautointerview.azurewebsites.net/api/"
     
-    func loadData() {
+    func fetchData() {
         getDatasetId(onSuccess: {datasetId in
-            self.getVechicleList(dataSetId: datasetId.datasetId, onSuccess: {
-                vechicles in
-                self.processAndLoadDealerShips(from: vechicles, datasetId: datasetId.datasetId, completation: { (dealerships) in
-                    
-                })
-                
-            },
-                            errorHandler: {}
-            )
-        }, errorHandler: {})
+            self.loadVechicleAndDealershipData(datasetId: datasetId.datasetId)
+        }, errorHandler: {
+           self.completedWithFailureError()
+        })
     }
     
-    func getDatasetId(onSuccess: @escaping (DatasetId) -> Void, errorHandler: @escaping () -> Void) {
+    private func loadVechicleAndDealershipData(datasetId: String) {
+        self.getVechicleList(dataSetId: datasetId, onSuccess: {
+            vechicles, vechicleErrorIds  in
+            self.processAndLoadDealerShips(from: vechicles,
+                                           datasetId: datasetId,
+                                           completation: { dealerships, dealerIdErrors  in
+                                            
+                                            self.completedGatherData(dealerships: dealerships,
+                                                                     vechicleIdErrors: vechicleErrorIds,
+                                                                     dealershipErrorId: dealerIdErrors)
+                
+            })
+            
+        },
+                             errorHandler: {
+                                self.completedWithFailureError()
+        })
+    }
+    
+    private func getDatasetId(onSuccess: @escaping (DatasetId) -> Void, errorHandler: @escaping () -> Void) {
         
         let urlString = DealersAndVehiclesWorker.urlBaseAPI + "datasetId"
         guard let dataURL = URL(string: urlString) else {
@@ -67,7 +113,8 @@ class DealersAndVehiclesWorker {
         task.resume()
     }
     
-    func getVechicleList(dataSetId:String, onSuccess: @escaping ([Vechicle]) -> Void, errorHandler: @escaping () -> Void) {
+    private func getVechicleList(dataSetId:String, onSuccess: @escaping ([Vechicle], _ errorIds:[Int]) -> Void, errorHandler: @escaping () -> Void) {
+        self.workerDelegate?.dealersAndVehiclesWorker(self, updateMessage: "Gather Vechicle Ids")
         
         let urlString = DealersAndVehiclesWorker.urlBaseAPI + dataSetId + "/vehicles"
         guard let dataURL = URL(string: urlString) else {
@@ -95,15 +142,16 @@ class DealersAndVehiclesWorker {
                 return
             }
             self.fetchVechicleData(from: datasetData, datasetId: dataSetId, completation: { (vechicles, errorIds) in
-                onSuccess(vechicles)
+                onSuccess(vechicles, errorIds)
             }
             )
-           // onSuccess()
         }
         task.resume()
     }
     
-    func fetchVechicleData(from vehicileIdList: VehiclesIdList, datasetId: String, completation:@escaping ([Vechicle], _ errorVechicleIds: [Int]) -> Void ) {
+    private func fetchVechicleData(from vehicileIdList: VehiclesIdList, datasetId: String, completation:@escaping ([Vechicle], _ errorVechicleIds: [Int]) -> Void ) {
+        
+        self.workerDelegate?.dealersAndVehiclesWorker(self, updateMessage: "Getting Vechicle Data")
         let downloadGroup = DispatchGroup()
         let baseVechicleApi = DealersAndVehiclesWorker.urlBaseAPI + datasetId
             + "/vehicles/"
@@ -137,12 +185,13 @@ class DealersAndVehiclesWorker {
         }
         
         downloadGroup.notify(queue: DispatchQueue.main) {
-            completation(vechicles, errorIdList)
+            let sortedVechicles = vechicles.sorted{$0.vechicleId > $1.vechicleId}
+            completation(sortedVechicles, errorIdList)
         }
     }
     
     
-    func fetchVechicleData(for vechicleDataRequest:URLRequest, onSuccess: @escaping (VehicleData) -> Void, errorHandler: @escaping () -> Void) {
+    private func fetchVechicleData(for vechicleDataRequest:URLRequest, onSuccess: @escaping (VehicleData) -> Void, errorHandler: @escaping () -> Void) {
         let session = URLSession.shared
         let task = session.dataTask(with: vechicleDataRequest) {
             (data, response, error) in
@@ -165,15 +214,18 @@ class DealersAndVehiclesWorker {
     }
     
     
-    func processAndLoadDealerShips(from vechicles: [Vechicle], datasetId: String, completation:@escaping (([Dealership]) -> Void))  {
+    private func processAndLoadDealerShips(from vechicles: [Vechicle], datasetId: String, completation:@escaping (([Dealership], _ loadErrorId: [Int]) -> Void))  {
+        
+        self.workerDelegate?.dealersAndVehiclesWorker(self, updateMessage: "Getting Dealership data")
         let downloadGroup = DispatchGroup()
         let baseGetDealerApi = DealersAndVehiclesWorker.urlBaseAPI + datasetId
             + "/dealers/"
         let dealerIdSet = Set(vechicles.map {$0.dealershipId})
-        
+        var errorIdList: [Int] = []
         var dealerships: [Dealership] = []
         
         var blocks: [DispatchWorkItem] = []
+    
         for dealerId in dealerIdSet {
             let dealerApi = baseGetDealerApi + "\(dealerId)"
             guard let apiUrl = URL(string: dealerApi) else {
@@ -181,25 +233,27 @@ class DealersAndVehiclesWorker {
             }
             let urlRequest = URLRequest(url: apiUrl)
             downloadGroup.enter()
+            
             let block = DispatchWorkItem( flags: .inheritQoS, block: {
-               
                 self.fetchDealershipData(for: urlRequest, onSuccess: {dealershipData in
-                    let dealerVechicles = vechicles.filter{return $0.dealershipId == dealerId}
+                    let dealerVechicles = vechicles.filter({return $0.dealershipId == dealerId})
+                    
                     let dealership = Dealership.init(dealerData: dealershipData, vechicles:dealerVechicles)
                     dealerships.append(dealership)
                     downloadGroup.leave()
                 }, onError: {
-//                    errorIdList.append(vehicleId)
+                    errorIdList.append(dealerId)
                     downloadGroup.leave()
                 })
-                
             })
+            
             blocks.append(block)
             DispatchQueue.main.async(execute: block)
         }
         
           downloadGroup.notify(queue: DispatchQueue.main) {
-             completation(dealerships)
+            let sortedDealers = dealerships.sorted{ $0.dealerId > $1.dealerId }
+             completation(sortedDealers, errorIdList)
         }
     }
     
@@ -227,6 +281,25 @@ class DealersAndVehiclesWorker {
         
         task.resume()
         
+    }
+    
+    private func completedGatherData(dealerships:[Dealership], vechicleIdErrors:[Int], dealershipErrorId:[Int]) {
+        let responseStatus: DealersVehiclesResponseStatus
+        if (vechicleIdErrors.isEmpty && dealershipErrorId.isEmpty){
+            responseStatus = .successfull
+        } else {
+            responseStatus = .errorOnSomeRecords
+        }
+        let responseData = DealerVehicleCallResponse(dealership: dealerships,
+                                                     vehicleIdsFailedToLoad: vechicleIdErrors,
+                                                     dealershipsIdFailedToLoad: dealershipErrorId,
+                                                     responseStatus: responseStatus)
+        self.workerDelegate?.dealersAndVehiclesWorkerComplete(self, dataResponse: responseData)
+    }
+    
+    private func completedWithFailureError() {
+        let responseData = DealerVehicleCallResponse(responseStatus: .error)
+        self.workerDelegate?.dealersAndVehiclesWorkerComplete(self, dataResponse: responseData)
     }
 
 }

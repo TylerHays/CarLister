@@ -12,6 +12,9 @@ class DealershipViewController: UIViewController {
 
     var dealerships: [Dealership]?
     let dealershipCellId = "DealershipCell"
+    let showVehiclesSegue = "ShowVehiclesSegue"
+    
+    var dealershipToShow: Dealership?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,17 +22,26 @@ class DealershipViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-
-    /*
+    func setup(dealerships: [Dealership]) {
+        self.dealerships = dealerships
+    }
+    
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == showVehiclesSegue {
+            setupshowVehiclesSegue(segue)
+        }
     }
-    */
-
+    
+    func setupshowVehiclesSegue(_ segue: UIStoryboardSegue) {
+        guard let controller = segue.destination as? VehiclesViewController,
+            let dealershipToShow = self.dealershipToShow else {
+                return
+        }
+        
+        controller.setup(dealership: dealershipToShow)
+    }
 }
 
 extension DealershipViewController: UITableViewDataSource {
@@ -47,10 +59,18 @@ extension DealershipViewController: UITableViewDataSource {
         cell.setup(with: dealership)
         return cell
     }
-    
-    
 }
 
 extension DealershipViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        guard let dealerships = self.dealerships else {
+            return
+        }
+        
+        dealershipToShow = dealerships[indexPath.row]
+        self.performSegue(withIdentifier: showVehiclesSegue, sender: self)
+    }
     
 }

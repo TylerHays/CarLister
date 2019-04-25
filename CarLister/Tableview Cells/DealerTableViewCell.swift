@@ -23,8 +23,9 @@ class DealerTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    
     func setup(with dealership:Dealership) {
-        self.dealerIdLabel.text = dealership.name
+        self.dealerNameLabel.text = dealership.name
         self.dealerIdLabel.text = "\(dealership.dealerId)"
     }
 

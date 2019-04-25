@@ -96,7 +96,6 @@
 				F31EA749226E771D00C54FF9 /* Bussiness Objects */,
 				F31EA746226E729E00C54FF9 /* Utility */,
 				F31EA726226E63B000C54FF9 /* AppDelegate.swift */,
-				F31EA728226E63B000C54FF9 /* StartingView.swift */,
 				F31EA72A226E63B000C54FF9 /* Main.storyboard */,
 				F31EA72D226E63B200C54FF9 /* Assets.xcassets */,
 				F31EA72F226E63B200C54FF9 /* LaunchScreen.storyboard */,
@@ -145,6 +144,7 @@
 			children = (
 				F31EA7542270245C00C54FF9 /* VehiclesViewController.swift */,
 				F31EA7562270246E00C54FF9 /* DealershipViewController.swift */,
+				F31EA728226E63B000C54FF9 /* StartingView.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
